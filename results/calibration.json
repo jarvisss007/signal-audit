@@ -1,0 +1,840 @@
+{
+ "args": {
+  "seeds": 25,
+  "symbols": 80,
+  "years": 16,
+  "workers": 4
+ },
+ "summary": {
+  "null / same_year": {
+   "worlds": 25,
+   "passed": 9,
+   "pass_rate": 0.36,
+   "mean_excess": 0.009096126530751418,
+   "mean_signals": 1477.76
+  },
+  "null / full_history": {
+   "worlds": 25,
+   "passed": 0,
+   "pass_rate": 0.0,
+   "mean_excess": -0.0007704683129383751,
+   "mean_signals": 1477.76
+  },
+  "planted / same_year": {
+   "worlds": 25,
+   "passed": 25,
+   "pass_rate": 1.0,
+   "mean_excess": 0.030252537290352155,
+   "mean_signals": 1442.92
+  },
+  "planted / full_history": {
+   "worlds": 25,
+   "passed": 24,
+   "pass_rate": 0.96,
+   "mean_excess": 0.02194479672078775,
+   "mean_signals": 1442.92
+  }
+ },
+ "worlds": [
+  {
+   "world": "null",
+   "seed": 1000,
+   "same_year": {
+    "excess": 0.014661817675935199,
+    "lo": 0.0035562562380931383,
+    "passed": true,
+    "n": 1683
+   },
+   "full_history": {
+    "excess": 0.0072534353481116184,
+    "lo": -0.004315204038174804,
+    "passed": false,
+    "n": 1683
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1001,
+   "same_year": {
+    "excess": 0.008662009057096751,
+    "lo": -0.0024577755646695574,
+    "passed": false,
+    "n": 1171
+   },
+   "full_history": {
+    "excess": -0.0022768177095268106,
+    "lo": -0.014722430524697435,
+    "passed": false,
+    "n": 1171
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1002,
+   "same_year": {
+    "excess": 0.013557907588419077,
+    "lo": 0.004661285028841816,
+    "passed": true,
+    "n": 1284
+   },
+   "full_history": {
+    "excess": 0.004608266222239182,
+    "lo": -0.004408349960844784,
+    "passed": false,
+    "n": 1284
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1003,
+   "same_year": {
+    "excess": 0.009776390887821536,
+    "lo": -0.0008889872948975655,
+    "passed": false,
+    "n": 1447
+   },
+   "full_history": {
+    "excess": -0.0007643333258912826,
+    "lo": -0.012398579103227135,
+    "passed": false,
+    "n": 1447
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1004,
+   "same_year": {
+    "excess": 0.002392511527574035,
+    "lo": -0.008394059211216038,
+    "passed": false,
+    "n": 1421
+   },
+   "full_history": {
+    "excess": -0.005806612935892558,
+    "lo": -0.015923376616257492,
+    "passed": false,
+    "n": 1421
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1005,
+   "same_year": {
+    "excess": 0.008144094418027761,
+    "lo": -0.001534543808222462,
+    "passed": false,
+    "n": 1523
+   },
+   "full_history": {
+    "excess": -0.0011419265597513535,
+    "lo": -0.011593175304074114,
+    "passed": false,
+    "n": 1523
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1006,
+   "same_year": {
+    "excess": 0.01211291601667896,
+    "lo": 0.0030412715472756314,
+    "passed": true,
+    "n": 1349
+   },
+   "full_history": {
+    "excess": 0.0022294766688145057,
+    "lo": -0.007327159198293844,
+    "passed": false,
+    "n": 1349
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1007,
+   "same_year": {
+    "excess": 0.007079280233513648,
+    "lo": -0.005486845804683962,
+    "passed": false,
+    "n": 1376
+   },
+   "full_history": {
+    "excess": -0.0025907009181020528,
+    "lo": -0.016046654329274098,
+    "passed": false,
+    "n": 1376
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1008,
+   "same_year": {
+    "excess": 0.012484538950808146,
+    "lo": 0.0037787658329360777,
+    "passed": true,
+    "n": 1437
+   },
+   "full_history": {
+    "excess": 0.004044130424146306,
+    "lo": -0.004911441603485125,
+    "passed": false,
+    "n": 1437
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1009,
+   "same_year": {
+    "excess": 0.008282675808797064,
+    "lo": -0.0020659455759872705,
+    "passed": false,
+    "n": 1589
+   },
+   "full_history": {
+    "excess": -0.0003071758445546812,
+    "lo": -0.01153703885243793,
+    "passed": false,
+    "n": 1589
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1010,
+   "same_year": {
+    "excess": 0.009491771753730232,
+    "lo": -9.143360697679924e-05,
+    "passed": false,
+    "n": 1556
+   },
+   "full_history": {
+    "excess": 0.0006146876595806988,
+    "lo": -0.008841846496897217,
+    "passed": false,
+    "n": 1556
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1011,
+   "same_year": {
+    "excess": 0.015394023167568228,
+    "lo": 0.0035241095476098096,
+    "passed": true,
+    "n": 1269
+   },
+   "full_history": {
+    "excess": 0.005313898823788528,
+    "lo": -0.006135153144229525,
+    "passed": false,
+    "n": 1269
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1012,
+   "same_year": {
+    "excess": 0.009782605763949919,
+    "lo": -0.0005655362520415862,
+    "passed": false,
+    "n": 1495
+   },
+   "full_history": {
+    "excess": -0.0010122720657844474,
+    "lo": -0.011135926396393811,
+    "passed": false,
+    "n": 1495
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1013,
+   "same_year": {
+    "excess": 0.004005932016503963,
+    "lo": -0.007690769512373095,
+    "passed": false,
+    "n": 1631
+   },
+   "full_history": {
+    "excess": -0.006772694920675811,
+    "lo": -0.018622891283679863,
+    "passed": false,
+    "n": 1631
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1014,
+   "same_year": {
+    "excess": 0.010212003560591893,
+    "lo": -0.0004168076713464142,
+    "passed": false,
+    "n": 1497
+   },
+   "full_history": {
+    "excess": 0.0003646491890298653,
+    "lo": -0.010668256364265879,
+    "passed": false,
+    "n": 1497
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1015,
+   "same_year": {
+    "excess": 0.005825399088972624,
+    "lo": -0.006480923411373701,
+    "passed": false,
+    "n": 1480
+   },
+   "full_history": {
+    "excess": -0.005168690265162609,
+    "lo": -0.017991898853847534,
+    "passed": false,
+    "n": 1480
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1016,
+   "same_year": {
+    "excess": 0.01073300001358797,
+    "lo": -0.0015016721029481612,
+    "passed": false,
+    "n": 1575
+   },
+   "full_history": {
+    "excess": 0.002926093130391784,
+    "lo": -0.00952782233573359,
+    "passed": false,
+    "n": 1575
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1017,
+   "same_year": {
+    "excess": -0.0051531218392883256,
+    "lo": -0.017014577560795843,
+    "passed": false,
+    "n": 1367
+   },
+   "full_history": {
+    "excess": -0.018184950334363483,
+    "lo": -0.031223245400826542,
+    "passed": false,
+    "n": 1367
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1018,
+   "same_year": {
+    "excess": 0.007408082441624738,
+    "lo": -0.001970060185134238,
+    "passed": false,
+    "n": 1664
+   },
+   "full_history": {
+    "excess": -0.0018941105741917023,
+    "lo": -0.011829778096992915,
+    "passed": false,
+    "n": 1664
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1019,
+   "same_year": {
+    "excess": 0.00898876136112475,
+    "lo": 0.000994851779629617,
+    "passed": true,
+    "n": 1617
+   },
+   "full_history": {
+    "excess": -0.002463222902850164,
+    "lo": -0.011525084312818802,
+    "passed": false,
+    "n": 1617
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1020,
+   "same_year": {
+    "excess": 0.007248678686974144,
+    "lo": -0.0038671829383692957,
+    "passed": false,
+    "n": 1600
+   },
+   "full_history": {
+    "excess": -0.004318898693990036,
+    "lo": -0.01709825175540744,
+    "passed": false,
+    "n": 1600
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1021,
+   "same_year": {
+    "excess": 0.0036284714732505714,
+    "lo": -0.008557148582827597,
+    "passed": false,
+    "n": 1513
+   },
+   "full_history": {
+    "excess": -0.008189028056395474,
+    "lo": -0.02033385953139419,
+    "passed": false,
+    "n": 1513
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1022,
+   "same_year": {
+    "excess": 0.015461186426436922,
+    "lo": 0.005459903221987244,
+    "passed": true,
+    "n": 1362
+   },
+   "full_history": {
+    "excess": 0.006876097731750652,
+    "lo": -0.0025291118026799226,
+    "passed": false,
+    "n": 1362
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1023,
+   "same_year": {
+    "excess": 0.011463741528371214,
+    "lo": 0.000978729690013054,
+    "passed": true,
+    "n": 1518
+   },
+   "full_history": {
+    "excess": 0.003121530253705111,
+    "lo": -0.007105991733611044,
+    "passed": false,
+    "n": 1518
+   }
+  },
+  {
+   "world": "null",
+   "seed": 1024,
+   "same_year": {
+    "excess": 0.015758485660714402,
+    "lo": 0.005200302782149179,
+    "passed": true,
+    "n": 1520
+   },
+   "full_history": {
+    "excess": 0.00427746183211484,
+    "lo": -0.0075298824685026584,
+    "passed": false,
+    "n": 1520
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1000,
+   "same_year": {
+    "excess": 0.03531888772354865,
+    "lo": 0.023966150019471555,
+    "passed": true,
+    "n": 1639
+   },
+   "full_history": {
+    "excess": 0.029328907719850795,
+    "lo": 0.017808456681285615,
+    "passed": true,
+    "n": 1639
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1001,
+   "same_year": {
+    "excess": 0.029268611023644583,
+    "lo": 0.018319697419546938,
+    "passed": true,
+    "n": 1139
+   },
+   "full_history": {
+    "excess": 0.019995575399361903,
+    "lo": 0.007041914274648147,
+    "passed": true,
+    "n": 1139
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1002,
+   "same_year": {
+    "excess": 0.0358719204766192,
+    "lo": 0.02683142136140048,
+    "passed": true,
+    "n": 1260
+   },
+   "full_history": {
+    "excess": 0.02809149491400294,
+    "lo": 0.019010291020666953,
+    "passed": true,
+    "n": 1260
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1003,
+   "same_year": {
+    "excess": 0.031013795360781,
+    "lo": 0.019618538102155622,
+    "passed": true,
+    "n": 1414
+   },
+   "full_history": {
+    "excess": 0.02216832684463768,
+    "lo": 0.010398904418060738,
+    "passed": true,
+    "n": 1414
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1004,
+   "same_year": {
+    "excess": 0.023448994421887404,
+    "lo": 0.011896533803599663,
+    "passed": true,
+    "n": 1391
+   },
+   "full_history": {
+    "excess": 0.016746277539759772,
+    "lo": 0.005448500502427289,
+    "passed": true,
+    "n": 1391
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1005,
+   "same_year": {
+    "excess": 0.028474264938860207,
+    "lo": 0.01811574503384944,
+    "passed": true,
+    "n": 1482
+   },
+   "full_history": {
+    "excess": 0.020883337303910097,
+    "lo": 0.009985292332730974,
+    "passed": true,
+    "n": 1482
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1006,
+   "same_year": {
+    "excess": 0.03304068344171019,
+    "lo": 0.02329722205134079,
+    "passed": true,
+    "n": 1317
+   },
+   "full_history": {
+    "excess": 0.02472411157687476,
+    "lo": 0.014131266931393053,
+    "passed": true,
+    "n": 1317
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1007,
+   "same_year": {
+    "excess": 0.029095355234242063,
+    "lo": 0.01576930191447548,
+    "passed": true,
+    "n": 1346
+   },
+   "full_history": {
+    "excess": 0.021110683631567467,
+    "lo": 0.007254354387341058,
+    "passed": true,
+    "n": 1346
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1008,
+   "same_year": {
+    "excess": 0.03375695506811182,
+    "lo": 0.02496558829853461,
+    "passed": true,
+    "n": 1408
+   },
+   "full_history": {
+    "excess": 0.026891874385499837,
+    "lo": 0.017419006453004877,
+    "passed": true,
+    "n": 1408
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1009,
+   "same_year": {
+    "excess": 0.029330871668804062,
+    "lo": 0.018763872299041702,
+    "passed": true,
+    "n": 1551
+   },
+   "full_history": {
+    "excess": 0.022089165603315856,
+    "lo": 0.011298949717865383,
+    "passed": true,
+    "n": 1551
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1010,
+   "same_year": {
+    "excess": 0.02994953144575437,
+    "lo": 0.020104368379675008,
+    "passed": true,
+    "n": 1514
+   },
+   "full_history": {
+    "excess": 0.022248619248692057,
+    "lo": 0.012615957211288985,
+    "passed": true,
+    "n": 1514
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1011,
+   "same_year": {
+    "excess": 0.03731100130985376,
+    "lo": 0.02499684081158844,
+    "passed": true,
+    "n": 1247
+   },
+   "full_history": {
+    "excess": 0.028801297130103334,
+    "lo": 0.016496723380155363,
+    "passed": true,
+    "n": 1247
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1012,
+   "same_year": {
+    "excess": 0.03090900450902678,
+    "lo": 0.019302715333643097,
+    "passed": true,
+    "n": 1464
+   },
+   "full_history": {
+    "excess": 0.021706976465017427,
+    "lo": 0.010720593656726765,
+    "passed": true,
+    "n": 1464
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1013,
+   "same_year": {
+    "excess": 0.024658226708882392,
+    "lo": 0.012399736540103758,
+    "passed": true,
+    "n": 1591
+   },
+   "full_history": {
+    "excess": 0.015387125946492646,
+    "lo": 0.002782254460001235,
+    "passed": true,
+    "n": 1591
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1014,
+   "same_year": {
+    "excess": 0.03076315174098938,
+    "lo": 0.019870632087029935,
+    "passed": true,
+    "n": 1471
+   },
+   "full_history": {
+    "excess": 0.022194671576951562,
+    "lo": 0.010637498250006056,
+    "passed": true,
+    "n": 1471
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1015,
+   "same_year": {
+    "excess": 0.026471975892638746,
+    "lo": 0.013863478184237896,
+    "passed": true,
+    "n": 1430
+   },
+   "full_history": {
+    "excess": 0.01728160034751208,
+    "lo": 0.003959811900108756,
+    "passed": true,
+    "n": 1430
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1016,
+   "same_year": {
+    "excess": 0.0317545033954152,
+    "lo": 0.017742220397963797,
+    "passed": true,
+    "n": 1545
+   },
+   "full_history": {
+    "excess": 0.025462919037298682,
+    "lo": 0.011677247073590635,
+    "passed": true,
+    "n": 1545
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1017,
+   "same_year": {
+    "excess": 0.016237560103562858,
+    "lo": 0.004039769507393619,
+    "passed": true,
+    "n": 1327
+   },
+   "full_history": {
+    "excess": 0.005011222532646785,
+    "lo": -0.008604019915472546,
+    "passed": false,
+    "n": 1327
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1018,
+   "same_year": {
+    "excess": 0.02843579317742461,
+    "lo": 0.01854720011297266,
+    "passed": true,
+    "n": 1609
+   },
+   "full_history": {
+    "excess": 0.020712870443209505,
+    "lo": 0.010030179098137887,
+    "passed": true,
+    "n": 1609
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1019,
+   "same_year": {
+    "excess": 0.030151292052756264,
+    "lo": 0.021600014965554845,
+    "passed": true,
+    "n": 1571
+   },
+   "full_history": {
+    "excess": 0.020466755321598536,
+    "lo": 0.010776293773665445,
+    "passed": true,
+    "n": 1571
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1020,
+   "same_year": {
+    "excess": 0.029116003582434213,
+    "lo": 0.01779537075410098,
+    "passed": true,
+    "n": 1566
+   },
+   "full_history": {
+    "excess": 0.019211989469045444,
+    "lo": 0.006485778194162578,
+    "passed": true,
+    "n": 1566
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1021,
+   "same_year": {
+    "excess": 0.02461307312980642,
+    "lo": 0.012732022409893441,
+    "passed": true,
+    "n": 1478
+   },
+   "full_history": {
+    "excess": 0.01444408084066042,
+    "lo": 0.0017382659997521135,
+    "passed": true,
+    "n": 1478
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1022,
+   "same_year": {
+    "excess": 0.03740624923020802,
+    "lo": 0.027520323536764132,
+    "passed": true,
+    "n": 1340
+   },
+   "full_history": {
+    "excess": 0.030190017744632303,
+    "lo": 0.020815064625858398,
+    "passed": true,
+    "n": 1340
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1023,
+   "same_year": {
+    "excess": 0.032400980915596754,
+    "lo": 0.021892732750147602,
+    "passed": true,
+    "n": 1482
+   },
+   "full_history": {
+    "excess": 0.02556906851972032,
+    "lo": 0.015006699535796746,
+    "passed": true,
+    "n": 1482
+   }
+  },
+  {
+   "world": "planted",
+   "seed": 1024,
+   "same_year": {
+    "excess": 0.037514745706244905,
+    "lo": 0.02651983087880077,
+    "passed": true,
+    "n": 1491
+   },
+   "full_history": {
+    "excess": 0.027900948477331614,
+    "lo": 0.016132248963793738,
+    "passed": true,
+    "n": 1491
+   }
+  }
+ ]
+}

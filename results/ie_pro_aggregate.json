@@ -1,0 +1,57 @@
+{
+ "about": "Aggregate results of the two IE Pro studies (2026-10-16 and 2026-10-17). Aggregates only: no bar data, no per-symbol or per-label output (the bars are TradingView data licensed for personal use and stay on the author's machine). Fractions, not percent. Research only; not advice.",
+ "study_1_daily_labels": {
+  "date": "2026-10-16",
+  "question": "Do the indicator's daily A-grade CONFIRMED labels work (target before stop) more often than an ordinary day?",
+  "engine": "TradingView's own server computing the indicator on a hidden chart session; parity check 70 of 70 labels reproduced on a test symbol",
+  "universe_fixed_before_scoring": 156,
+  "symbols_with_labels": 153,
+  "years": "2002-2026",
+  "a_labels": {"short": 3029, "long": 4447, "total": 7476},
+  "prereg_letter": {
+   "hit_rate_edge_vs_same_year": {"short": [0.089, 0.056, 0.121], "long": [0.078, 0.060, 0.097]},
+   "mean_R_hold_to_TP2_or_stop": {"short": [-0.165, -0.254, -0.071], "long": [0.099, 0.035, 0.165]},
+   "note": "[mean, lo, hi], 95% calendar-week bootstrap. By the letter of its verdict rule, A longs passed."
+  },
+  "why_the_letter_was_wrong": {
+   "stop_geometry": {"median_stop_atr_label": {"long": 1.46, "short": 1.49}, "median_stop_atr_ordinary": {"long": 0.89, "short": 0.86},
+                     "hit_rate_edge_same_stop_same_year": {"long": [-0.017, -0.036, 0.002], "short": [-0.014, -0.044, 0.017]},
+                     "hit_rate_edge_same_stop_whole_history": {"long": [-0.009, -0.033, 0.014], "short": [0.003, -0.030, 0.034]},
+                     "note": "the same-year version was exploratory on 10-16 and used the yardstick later shown to be biased; the whole-history version is the 10-17 correction"},
+   "R_tested_against_zero": "the rule tested mean R against 0 while its own luck-line section said the ordinary day decides; random-day longs earned +0.29 R in a market that rose 2002-2026"
+  },
+  "corrected_2026_10_17": {
+   "method": "same symbol's ordinary days over its whole history, label days of any grade excluded, stop distance matched, calendar-month bootstrap",
+   "a_short": {"target_first": 0.446, "ordinary_same_stop": 0.443, "R_gap": [-0.01, -0.11, 0.10]},
+   "a_long": {"target_first": 0.512, "ordinary_same_stop": 0.521, "R_gap": [-0.06, -0.15, 0.02]},
+   "verdict": "NOT SUPPORTED, every grade; 'A is worse than a random day' withdrawn"
+  }
+ },
+ "study_2_bounce_holdout": {
+  "date": "2026-10-17",
+  "question": "After an A or A+ SHORT label, buy the next open and sell 20 trading days later: does the stock beat its own ordinary days?",
+  "discovery_looks_K": 18,
+  "reviewer": {"agent": "prereg-reviewer (read-only tools; barred from the holdout folder)", "verdict": "NOT READY", "fixes": 7},
+  "same_question_four_ways": [
+   {"label": "first method (same-stock same-year yardstick), discovery charts", "mean": 0.01877, "lo": 0.00798, "hi": 0.02897, "kind": "method", "note": "entered at the signal close, calendar-week clusters (the v1 draft); from the next open it is +1.75%"},
+   {"label": "first method on SHUFFLED prices (nothing to find)", "mean": 0.0145, "lo": 0.0111, "hi": 0.0185, "kind": "placebo", "note": "range over 10 shuffles, not a 95% interval"},
+   {"label": "corrected method, discovery charts", "mean": 0.00726, "lo": -0.00513, "hi": 0.02009, "kind": "method"},
+   {"label": "corrected method, 408 FRESH stocks = the test", "mean": 0.00293, "lo": -0.00723, "hi": 0.01151, "kind": "test"}
+  ],
+  "placebo_full_history": {"discovery": 0.0019, "holdout": 0.0005, "holdout_range": [-0.0003, 0.0018], "gate": 0.003},
+  "discovery_corrected": {"labels": 3760, "symbols": 154, "months": 239, "label_dates": ["2001-09-28", "2026-09-18"], "halves": [-0.0023, 0.0105], "pre_label_20d_move": -0.098},
+  "holdout": {
+   "stocks": 408, "stocks_with_labels": 407, "labels": 11569, "months": 213, "label_dates": ["2000-02-24", "2026-09-18"],
+   "label_20d_return": 0.0146, "ordinary_20d_return": 0.0107,
+   "excess_after_cost": [0.0029, -0.0072, 0.0115], "halves_pre_post_2016": [0.0034, 0.0027],
+   "up_after_20d": {"label": 0.581, "ordinary": 0.565},
+   "verdict_Q1": "NOT SUPPORTED", "verdict_Q2": "NOT READ (Q1 did not pass)",
+   "q2_diagnostic_disclosed": [-0.0067, -0.0169, 0.0018],
+   "reported_never_verdicts": {"A_only": [0.0027, -0.0070, 0.0109], "Aplus_only": [0.0042, -0.0084, 0.0154],
+                               "only_after_joining_SP500": [0.0021, -0.0088, 0.0112], "pre_label_20d_move": -0.077}
+  },
+  "freeze": {"files_hashed": 5, "frozen": "2026-10-17 09:55 PT", "scored": "2026-10-17 ~10:30 PT, after all five hashes checked"},
+  "ledger": {"trials_before": 55, "trials_after_registration": 56, "trials_after_result": 56,
+             "not_entered": "study 1's two primary trials and a 32-cell IE Pro test on 2026-10-12 were research runs never entered; disclosed in the ledger, not back-filled"}
+ }
+}

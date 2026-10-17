@@ -1,0 +1,112 @@
+{
+ "forward": [
+  {
+   "world": "null",
+   "truth": "labels predict nothing",
+   "baseline": "same_year",
+   "n": 1499,
+   "excess": 0.005612147691559849,
+   "ci": [
+    -0.003535755651577186,
+    0.016003913808533863
+   ],
+   "placebo": 0.009423850793750571,
+   "placebo_range": [
+    0.006439242727554372,
+    0.012679751271992246
+   ],
+   "verdict": "VOID (placebo gate)",
+   "without_gate": "NOT SUPPORTED",
+   "q2": "NOT READ (Q1 did not pass)",
+   "q2_excess": null
+  },
+  {
+   "world": "null",
+   "truth": "labels predict nothing",
+   "baseline": "full_history",
+   "n": 1499,
+   "excess": -0.0028391386746765427,
+   "ci": [
+    -0.012039693578018441,
+    0.007651208055479844
+   ],
+   "placebo": -0.0007584203354590788,
+   "placebo_range": [
+    -0.004646610005748704,
+    0.002299363284198731
+   ],
+   "verdict": "NOT SUPPORTED",
+   "without_gate": null,
+   "q2": "NOT READ (Q1 did not pass)",
+   "q2_excess": null
+  },
+  {
+   "world": "planted",
+   "truth": "+2.5% after A/A+ shorts",
+   "baseline": "full_history",
+   "n": 1452,
+   "excess": 0.0188792515032959,
+   "ci": [
+    0.009091496365654268,
+    0.02981840882299083
+   ],
+   "placebo": -0.0007192127714335349,
+   "placebo_range": [
+    -0.004264326554249754,
+    0.0027190509789390862
+   ],
+   "verdict": "SUPPORTED",
+   "without_gate": null,
+   "q2": "ADDS VALUE",
+   "q2_excess": 0.010030996650607756
+  },
+  {
+   "world": "reversal",
+   "truth": "every sharp fall partly reverses",
+   "baseline": "full_history",
+   "n": 1439,
+   "excess": 0.011314609054901193,
+   "ci": [
+    0.002341407123526958,
+    0.021247275783064894
+   ],
+   "placebo": -0.0007636063134692998,
+   "placebo_range": [
+    -0.004276645093815614,
+    0.0026417659128383716
+   ],
+   "verdict": "SUPPORTED",
+   "without_gate": null,
+   "q2": "NOTHING BEYOND THE MOVE",
+   "q2_excess": 0.00032646277943872067
+  }
+ ],
+ "bracket_null_short": {
+  "side": "short",
+  "n": 1507,
+  "n_matched": 1437,
+  "hit": 0.4558725945587259,
+  "ordinary_hit_any_stop": 0.37294743559926974,
+  "edge_unmatched": 0.08292515895945615,
+  "edge_unmatched_ci": [
+   0.042479086564463774,
+   0.11901574843769701
+  ],
+  "hit_matched_sample": 0.4474599860821155,
+  "ordinary_hit_same_stop": 0.44936043037786766,
+  "edge_same_stop": -0.0019004442957521281,
+  "edge_same_stop_ci": [
+   -0.04135319504343984,
+   0.03533599810728749
+  ],
+  "R": -0.041862245796132395,
+  "ordinary_R_same_stop": -0.04186938580445763,
+  "R_gap_ci": [
+   -0.08285127602479421,
+   0.07756832799491524
+  ],
+  "median_stop_atr_signal": 1.3640440628941373,
+  "median_stop_atr_ordinary": 0.8569688691803687,
+  "same_bar_stop_and_target": 0
+ }
+}

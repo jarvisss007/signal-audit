@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+examples/data/generated/
+.DS_Store
+docs/one_pager.html
