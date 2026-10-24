@@ -1,5 +1,7 @@
 # signal-audit
 
+[![ci](https://github.com/jarvisss007/signal-audit/actions/workflows/ci.yml/badge.svg)](https://github.com/jarvisss007/signal-audit/actions/workflows/ci.yml)
+
 **A trading indicator its user trusted, tested by AI agents under rules they could not bend, ending in an honest "no".**
 This repo is the case study and the reusable part of the machinery: a scorer, a placebo gate, a freeze check and an
 append-only trial ledger that run on any OHLCV + signal CSV.
