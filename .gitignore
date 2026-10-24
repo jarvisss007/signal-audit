@@ -4,3 +4,5 @@ __pycache__/
 examples/data/generated/
 .DS_Store
 docs/one_pager.html
+*.egg-info/
+build/
