@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "signal-audit"
+dynamic = ["version"]
+description = "Test whether a trading signal beats an honest baseline: placebo gate, frozen pre-registration, append-only trial ledger, and an MCP server that enforces the loop for AI agents."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Anupam Patil" }]
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.24", "pandas>=2.0"]
+
+[project.optional-dependencies]
+mcp = ["mcp>=2.0; python_version>='3.10'"]
+test = ["pytest>=7", "matplotlib>=3.7"]
+
+[project.scripts]
+signal-audit = "signal_audit.cli:main"
+signal-audit-mcp = "signal_audit.mcp_server:main"
+
+[project.urls]
+Homepage = "https://github.com/jarvisss007/signal-audit"
+
+[tool.setuptools]
+packages = ["signal_audit"]
+
+[tool.setuptools.dynamic]
+version = { attr = "signal_audit.__version__" }

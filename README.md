@@ -4,7 +4,8 @@
 
 **A trading indicator its user trusted, tested by AI agents under rules they could not bend, ending in an honest "no".**
 This repo is the case study and the reusable part of the machinery: a scorer, a placebo gate, a freeze check and an
-append-only trial ledger that run on any OHLCV + signal CSV.
+append-only trial ledger that run on any OHLCV + signal CSV, plus an [MCP server](#use-it-from-an-ai-agent-mcp) that
+hands the same loop to any AI agent as tools it can call but cannot bend.
 
 ![The same question, four ways](docs/case_study.png)
 
@@ -127,8 +128,9 @@ Python 3.9+, numpy, pandas, matplotlib (pytest for the tests).
 ```bash
 pip install -r requirements.txt
 python examples/demo.py          # three synthetic worlds with known truth, ~1 minute
-python -m pytest -q              # 10 tests, ~5 seconds
+python -m pytest -q              # 22 tests, ~5 seconds (the MCP tests need the [mcp] extra)
 bash examples/walkthrough.sh     # the governance loop on the sample, including three attempts to cheat it
+python examples/mcp_session.py   # the same loop driven through the MCP server, including four shortcuts
 python examples/calibration.py   # false-alarm rate and power of each yardstick, a few minutes
 ```
 
@@ -175,6 +177,61 @@ python -m signal_audit ledger result --ledger trials.jsonl --id MYTEST-001/v1 --
 python -m signal_audit bracket --data my.csv --codes 2,3 --side long        # target-before-stop, stop distance matched
 ```
 
+## Use it from an AI agent (MCP)
+
+The same loop as an [MCP](https://modelcontextprotocol.io) server, for any MCP client: Claude Code, Claude Desktop,
+Cursor. It is stricter than the CLI, because its caller is a model that may be under pressure to find a "yes":
+
+| | CLI | MCP server |
+|---|---|---|
+| Score a trial nobody registered | allowed | refused |
+| Score without a freeze | allowed (`--lock` is optional) | refused |
+| Record the result | a separate step you can skip | done by the scorer before it returns |
+| Score the same trial twice | allowed | refused |
+| Re-freeze over an existing lock | overwrites it | refused |
+| The data file | frozen if you list it | always frozen with the rule |
+| Paths | anywhere | inside one root folder |
+
+```bash
+pip install -e ".[mcp]"          # Python 3.10+
+claude mcp add signal-audit -- signal-audit-mcp --root /path/to/your/audit/folder
+```
+
+Any other client runs the same command, `signal-audit-mcp --root <folder>`, over stdio.
+
+Eight tools. Four only read: `get_templates`, `describe_data`, `check_freeze`, `read_ledger`. Four write, and none of
+them can overwrite or delete anything: `register_trial`, `freeze_rule`, `run_trial`, `record_correction`. Each tool's
+MCP annotations say which kind it is. The rules live in [`signal_audit/governed.py`](signal_audit/governed.py), in
+code; the server is a thin wrapper around it.
+
+`examples/mcp_session.py` drives the server with the official MCP client, the way an agent would: one honest trial, then
+four shortcuts. Its output, trimmed (paths shortened):
+
+```
+== run_trial: scored once, result written to the ledger by the scorer
+   SAMPLE-001/v1: buy the next open after an A/A+ short label, sell 20 bars later (synthetic sample)
+     signals 87 on 12 symbols, 48 months; still running 1
+     signal +1.12% vs ordinary +1.61%  ->  excess after cost -0.60% [-2.34, +1.29]
+     VERDICT Q1: NOT SUPPORTED
+== shortcut 1: run it again and hope for a different answer
+   REFUSED: SAMPLE-001/v1 was already scored (ledger line 2, verdict NOT SUPPORTED). A trial is scored once; a change is a new trial id.
+== shortcut 2: edit the spec to hold 10 bars, re-freeze over the old lock
+   REFUSED: prereg.lock.json already exists: a rule is frozen once. A change is a new trial id with a new lock.
+== shortcut 3: call it v2 and score it under the old lock
+   (registered, so the trial count is now 2)
+   REFUSED: the freeze is broken, nothing scored: spec.json: changed since 2026-10-24T18:46:18+00:00
+== shortcut 4: read a file outside the audit folder
+   REFUSED: ../../.ssh/id_rsa: outside the audit root <root>
+== read_ledger: what anyone reviewing this will see
+   1  register SAMPLE-001/v1   trials 1  buy the next open after an A/A+ short label, hold 20 bars
+   2  result   SAMPLE-001/v1   trials 1  NOT SUPPORTED
+   3  register SAMPLE-001/v2   trials 2  same, held 10 bars (chosen after seeing v1)
+   open (registered, never scored): ['SAMPLE-001/v2']
+```
+
+The variant is still possible: freeze it into a new lock and score it. It just costs a trial, and the ledger shows it
+was chosen after the first result.
+
 ## What is not here, and why
 
 - **No market data or per-symbol output.** The bars are TradingView data licensed for personal use; they stay on my
@@ -195,6 +252,8 @@ python -m signal_audit bracket --data my.csv --codes 2,3 --side long        # ta
   the yardstick; it does not rule out every bias.
 - The Firm's ledger carries a disclosed, unreconciled count drift of one entry from an earlier generation; this test
   did not touch it.
+- The MCP server's root folder is a boundary for the agent's tools, not for the machine. Anyone with a shell can still
+  edit files; the freeze and the hash chain make that detectable, and the tools refuse to run on top of it.
 - Study 1's verdict rule had the two holes described above. Its literal reading is printed in its results, next to the
   verdict, rather than replaced.
 
@@ -203,11 +262,13 @@ python -m signal_audit bracket --data my.csv --codes 2,3 --side long        # ta
 ```
 signal_audit/   data.py · forward.py (excess vs baseline, Q2) · placebo.py · bracket.py · stats.py (month clusters)
                 audit.py (spec + verdict rules) · prereg.py (freeze/verify) · ledger.py (hash-chained) · cli.py
-examples/       make_synthetic.py · demo.py · calibration.py · walkthrough.sh · spec_sample.json · PREREG_TEMPLATE.md
+                governed.py (the loop's rules for a model caller) · mcp_server.py (MCP wrapper, 8 tools)
+examples/       make_synthetic.py · demo.py · calibration.py · walkthrough.sh · mcp_session.py · spec_sample.json
+                PREREG_TEMPLATE.md
                 data/sample.csv.gz (12 synthetic symbols x 8 years)
 docs/           reviewer_report.md · case_study.png · demo.png · make_figures.py
 results/        ie_pro_aggregate.json (real study, aggregates) · demo_results.json · calibration.json (synthetic)
-tests/          test_audit.py
+tests/          test_audit.py · test_governed.py (each way to cheat, refused) · test_mcp_stdio.py (over stdio)
 ```
 
 Related: [backtest-overfitting](https://github.com/jarvisss007/backtest-overfitting) (deflated Sharpe, PBO),
