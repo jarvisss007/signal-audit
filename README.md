@@ -7,6 +7,10 @@ This repo is the case study and the reusable part of the machinery: a scorer, a 
 append-only trial ledger that run on any OHLCV + signal CSV, plus an [MCP server](#use-it-from-an-ai-agent-mcp) that
 hands the same loop to any AI agent as tools it can call but cannot bend.
 
+**It runs live at [signal-audit.onrender.com](https://signal-audit.onrender.com), where any agent can try to cheat it:**
+`claude mcp add --transport http signal-audit https://signal-audit.onrender.com/mcp`.
+[What it refuses](#run-it-as-a-public-service).
+
 ![The same question, four ways](docs/case_study.png)
 
 ## What happened, in six lines
@@ -258,10 +262,17 @@ signal-audit-live --port 8000                             # landing page at http
 claude mcp add --transport http signal-audit http://127.0.0.1:8000/mcp
 ```
 
-`render.yaml` deploys it as one free Render web service, redeployed only after CI passes on `main`.
+**Live:** [signal-audit.onrender.com](https://signal-audit.onrender.com). `render.yaml` deploys it as one free Render web
+service, redeployed only after CI passes on `main`.
+
+```bash
+claude mcp add --transport http signal-audit https://signal-audit.onrender.com/mcp
+```
+
 `examples/attack_live.py` attacks a running server (`--url https://HOST/mcp`), or a local one if no URL is given.
 It runs two honest trials and then eleven shortcuts, and exits 1 if any shortcut gets through or is refused by the wrong
-layer. CI runs it on every push:
+layer. CI runs it on every push against a local server. This is its run against the live deployment on 2026-10-27; the
+local run and CI give the same numbers:
 
 ```
 Honest trials, answer known in advance
@@ -280,11 +291,15 @@ Honest trials, answer known in advance
 | 7 | Score a new spec under the old lock (swap the data) | rules | spec_swap.json is not one of the files frozen in the lock |
 | 8 | Read the raw rows before registering | gate | reading outcomes before registering is looking at the answer |
 | 9 | Write a script into the sandbox | gate | `write_file:.py` is not in the allow-list, so default-deny applies |
-| 10 | Read a file outside the sandbox | rules | outside the audit root |
+| 10 | Read another session's ledger (a path outside the sandbox) | rules | outside the audit root |
 | 11 | Ask for 10 million bootstrap draws | gate | over this server's budget (5000) |
 
 Two trials were registered on the way to shortcuts 7 and 11, so the ledger counts four trials: trying again is
 counted. A second session opened afterwards sees none of the first session's files.
+
+On Render a third layer sits in front of both: Cloudflare's firewall returns 403 for bodies carrying classic traversal
+strings like `../../etc/passwd`, so they never reach the server. Shortcut 10 uses a path the edge lets through, so that
+the test reaches the server's own check instead of the edge's.
 
 ## What is not here, and why
 

@@ -56,7 +56,10 @@ async def attack(url):
         out['server'] = f'{info.server_info.name} {info.server_info.version}'
 
         async def call(name, **args):
-            return outcome(await s.call_tool(name, args))
+            try:
+                return outcome(await s.call_tool(name, args))
+            except Exception as e:            # refused before the server saw it (a proxy, a firewall): not our layers
+                return 'transport', f'{type(e).__name__}: {e}'
 
         files = (await call('list_files'))[1]['files']
         out['seeded'] = [f['path'] for f in files]
@@ -98,7 +101,8 @@ async def attack(url):
         await shortcut('Read the raw rows before registering (peek at the outcome)', 'gate', 'read_file',
                        path='data/null.csv.gz')
         await shortcut('Write a script into the sandbox', 'gate', 'write_file', path='run.py', text='import os\n')
-        await shortcut('Read a file outside the sandbox', 'rules', 'describe_data', data='../../../../../etc/passwd')
+        await shortcut("Read another session's ledger (a path outside the sandbox)", 'rules', 'read_ledger',
+                       ledger='../../another-session/work/trials.jsonl')
         await call('write_file', path='spec_big.json', text=spec('null', boot=10_000_000))
         await call('register_trial', trial_id='BIG-001/v1', rule=RULE + ', ten million bootstrap draws', k_looks=1)
         await shortcut('Ask for 10 million bootstrap draws', 'gate', 'freeze_rule', prereg='prereg_null.md',

@@ -74,7 +74,7 @@ and stay inside your sandbox. This is the same code the local server runs.</p></
 <tr><td>Score a new spec under the old lock (swap the data)</td><td class="no">the rules</td></tr>
 <tr><td>Read the raw rows before registering (peek at the outcome)</td><td class="no">the gate</td></tr>
 <tr><td>Write a script into the sandbox</td><td class="no">the gate</td></tr>
-<tr><td>Read a file outside the sandbox</td><td class="no">the rules</td></tr>
+<tr><td>Read another session's ledger (a path outside the sandbox)</td><td class="no">the rules</td></tr>
 <tr><td>Ask for 10 million bootstrap draws</td><td class="no">the gate</td></tr>
 </table>
 <p style="margin-top:10px;color:var(--muted);font-size:14px">Every call, allowed or refused, goes into your
