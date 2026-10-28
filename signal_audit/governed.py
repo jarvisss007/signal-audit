@@ -12,8 +12,10 @@ Same engine as the CLI, plus three rules the CLI leaves to the person at the key
 The data file is frozen with the rule, so the test set can't be swapped after the freeze either.
 Every function returns a plain dict; a refusal raises Refused with the reason, which the MCP server hands back.
 """
+import contextvars
 import hashlib
 import json
+from contextlib import contextmanager
 from dataclasses import replace
 from pathlib import Path
 
@@ -33,6 +35,7 @@ SPEC_FIELDS = {
 }
 
 _root = None
+_call_root = contextvars.ContextVar('signal_audit_call_root', default=None)
 
 
 class Refused(Exception):
@@ -48,8 +51,19 @@ def set_root(path):
     return p
 
 
+@contextmanager
+def rooted(path):
+    """Run the calls inside this block under their own root, whatever the process-wide root is. The live server gives
+    every session its own folder this way, so two sessions scoring at once never see each other's files."""
+    token = _call_root.set(Path(path).resolve())
+    try:
+        yield
+    finally:
+        _call_root.reset(token)
+
+
 def root():
-    return _root or Path.cwd().resolve()
+    return _call_root.get() or _root or Path.cwd().resolve()
 
 
 def _inside(path, must_exist=True, suffix=None):

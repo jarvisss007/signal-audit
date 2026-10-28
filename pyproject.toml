@@ -19,12 +19,13 @@ test = ["pytest>=7", "matplotlib>=3.7"]
 [project.scripts]
 signal-audit = "signal_audit.cli:main"
 signal-audit-mcp = "signal_audit.mcp_server:main"
+signal-audit-live = "signal_audit.live.server:main"
 
 [project.urls]
 Homepage = "https://github.com/jarvisss007/signal-audit"
 
 [tool.setuptools]
-packages = ["signal_audit"]
+packages = ["signal_audit", "signal_audit.live"]
 
 [tool.setuptools.dynamic]
 version = { attr = "signal_audit.__version__" }
