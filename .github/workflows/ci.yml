@@ -17,3 +17,5 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: pip install -e ".[mcp,test]"
       - run: pytest -q
+      - name: Attack the live server (local)
+        run: python examples/attack_live.py

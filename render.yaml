@@ -1,0 +1,16 @@
+# The live MCP server (signal_audit/live) as one free Render web service. Render reads this file when the repo is
+# connected as a Blueprint, builds from main, and deploys a new version only after CI passes on that commit.
+# Render sets PORT and RENDER_EXTERNAL_HOSTNAME; the server answers only to that host name (and localhost).
+services:
+  - type: web
+    name: signal-audit
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -e ".[mcp]"
+    startCommand: signal-audit-live --host 0.0.0.0
+    healthCheckPath: /health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8

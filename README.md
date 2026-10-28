@@ -232,6 +232,60 @@ four shortcuts. Its output, trimmed (paths shortened):
 The variant is still possible: freeze it into a new lock and score it. It just costs a trial, and the ledger shows it
 was chosen after the first result.
 
+## Run it as a public service
+
+`signal-audit-live` serves the same loop over streamable HTTP to anyone, with no account. A stranger's agent should not
+be trusted with a shell, so this version gives each MCP session its own sandbox and puts a second layer in front of the
+rules:
+
+- **The gate** is default-deny on *what* a call is. It is [agent-verification-lab](https://github.com/jarvisss007/agent-verification-lab)'s
+  policy gate, vendored unchanged. An action runs only if it is on the allow-list in
+  [`signal_audit/live/server.py`](signal_audit/live/server.py). The gate blocks four things by name: writing a
+  ledger, writing a lock, writing a frozen file, and reading the rows of the data, because reading outcomes before
+  registering is looking at the answer. Anything else unlisted, such as a `.py` file, is denied without a rule having
+  to name it. The per-session budgets (calls, writes, scores, bootstrap size) and a per-client rate limit belong to the
+  gate too.
+- **The rules** are `governed.py`, the same code the stdio server runs.
+
+Each sandbox is seeded with the sample and two synthetic worlds whose answer is known in advance. In `data/null.csv.gz`
+the labels predict nothing. In `data/planted.csv.gz` the price drifts up 2.5% over the 20 bars after every A/A+ short
+label. Every call, allowed or refused, goes into the session's hash-chained gate log. The log sits outside the sandbox,
+so no call can reach it, and `read_gate_log` shows it. A sandbox is deleted after 30 idle minutes.
+
+```bash
+pip install -e ".[mcp]"                                   # Python 3.10+
+signal-audit-live --port 8000                             # landing page at http://127.0.0.1:8000
+claude mcp add --transport http signal-audit http://127.0.0.1:8000/mcp
+```
+
+`render.yaml` deploys it as one free Render web service, redeployed only after CI passes on `main`.
+`examples/attack_live.py` attacks a running server (`--url https://HOST/mcp`), or a local one if no URL is given.
+It runs two honest trials and then eleven shortcuts, and exits 1 if any shortcut gets through or is refused by the wrong
+layer. CI runs it on every push:
+
+```
+Honest trials, answer known in advance
+  PLANTED-001/v1  truth: +2.5% edge planted  verdict: SUPPORTED      excess +2.31% [+1.05, +3.67], 463 signals
+  NULL-001/v1     truth: no edge             verdict: NOT SUPPORTED  excess -0.20% [-1.41, +1.08], 475 signals
+```
+
+| # | Shortcut | Refused by | What it said |
+|---|---|---|---|
+| 1 | Score a trial that was never registered | rules | register_trial comes before any score |
+| 2 | Score the same trial again, hoping for a different answer | rules | already scored (ledger line 2); a change is a new trial id |
+| 3 | Edit the frozen spec after seeing the result | gate | this file is frozen in a lock |
+| 4 | Forge a lock with fresh hashes | gate | a lock is written only by freeze_rule, once |
+| 5 | Rewrite the trial ledger | gate | the ledger is written only by the ledger tools |
+| 6 | Re-freeze over the old lock | rules | a rule is frozen once |
+| 7 | Score a new spec under the old lock (swap the data) | rules | spec_swap.json is not one of the files frozen in the lock |
+| 8 | Read the raw rows before registering | gate | reading outcomes before registering is looking at the answer |
+| 9 | Write a script into the sandbox | gate | `write_file:.py` is not in the allow-list, so default-deny applies |
+| 10 | Read a file outside the sandbox | rules | outside the audit root |
+| 11 | Ask for 10 million bootstrap draws | gate | over this server's budget (5000) |
+
+Two trials were registered on the way to shortcuts 7 and 11, so the ledger counts four trials: trying again is
+counted. A second session opened afterwards sees none of the first session's files.
+
 ## What is not here, and why
 
 - **No market data or per-symbol output.** The bars are TradingView data licensed for personal use; they stay on my
@@ -254,6 +308,9 @@ was chosen after the first result.
   did not touch it.
 - The MCP server's root folder is a boundary for the agent's tools, not for the machine. Anyone with a shell can still
   edit files; the freeze and the hash chain make that detectable, and the tools refuse to run on top of it.
+- The live server is a demo on a free instance: no accounts, 0.1 CPU and 512 MB, per-session budgets and a per-client
+  rate limit. That stops a careless loop, not a determined denial of service. It sleeps after 15 idle minutes and
+  takes about a minute to wake.
 - Study 1's verdict rule had the two holes described above. Its literal reading is printed in its results, next to the
   verdict, rather than replaced.
 
@@ -263,12 +320,16 @@ was chosen after the first result.
 signal_audit/   data.py · forward.py (excess vs baseline, Q2) · placebo.py · bracket.py · stats.py (month clusters)
                 audit.py (spec + verdict rules) · prereg.py (freeze/verify) · ledger.py (hash-chained) · cli.py
                 governed.py (the loop's rules for a model caller) · mcp_server.py (MCP wrapper, 8 tools)
-examples/       make_synthetic.py · demo.py · calibration.py · walkthrough.sh · mcp_session.py · spec_sample.json
-                PREREG_TEMPLATE.md
+signal_audit/live/  server.py (HTTP server, gate, 12 tools) · sandbox.py (one folder per session, budgets) · page.py
+                policy_gate.py · event_log.py (vendored unchanged from agent-verification-lab)
+examples/       make_synthetic.py · demo.py · calibration.py · walkthrough.sh · mcp_session.py · attack_live.py
+                spec_sample.json · PREREG_TEMPLATE.md
                 data/sample.csv.gz (12 synthetic symbols x 8 years)
 docs/           reviewer_report.md · case_study.png · demo.png · make_figures.py
 results/        ie_pro_aggregate.json (real study, aggregates) · demo_results.json · calibration.json (synthetic)
 tests/          test_audit.py · test_governed.py (each way to cheat, refused) · test_mcp_stdio.py (over stdio)
+                test_live.py (over HTTP: every shortcut, the right layer, sessions apart, the rate limit)
+render.yaml     one free Render web service, deployed after CI passes
 ```
 
 Related: [backtest-overfitting](https://github.com/jarvisss007/backtest-overfitting) (deflated Sharpe, PBO),
